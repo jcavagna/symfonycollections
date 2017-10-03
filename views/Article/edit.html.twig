@@ -1,0 +1,124 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/select2.css') }}" />
+{% endblock %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>Hotel edit</h1>
+        <a href="{{ path('article') }}">
+            <span class="glyphicon glyphicon-chevron-left"></span> Back
+        </a>
+    </div>
+
+    <nav id="page-nav" class="navbar navbar-default" role="navigation">
+        {{ form(delete_form) }}
+    </nav>
+
+    {{ form_start(edit_form) }}
+
+    <div class="form_row field-title col-md-6">
+        {{ form_label(edit_form.title) }}
+        {{ form_widget(edit_form.title) }}
+        {{ form_errors(edit_form.title) }}
+    </div>
+    <div class="form_row field-author col-md-6">
+        {{ form_label(edit_form.author) }}
+        {{ form_widget(edit_form.author) }}
+        {{ form_errors(edit_form.author) }}
+    </div>
+    <div class="form_row field-date col-md-6">
+        {{ form_label(edit_form.date) }}
+        {{ form_widget(edit_form.date) }}
+        {{ form_errors(edit_form.date) }}
+    </div>
+    <div class="form_row field-content col-md-6">
+        {{ form_label(edit_form.content) }}
+        {{ form_widget(edit_form.content) }}
+        {{ form_errors(edit_form.content) }}
+    </div>
+    <div class="form_row field-categories col-md-12">
+        {{ form_label(edit_form.categories) }}
+        {{ form_widget(edit_form.categories) }}
+        {{ form_errors(edit_form.categories) }}
+    </div>
+    <div class="form_row field-tags col-md-12">
+        {{ form_label(edit_form.tags) }}
+        {{ form_widget(edit_form.tags) }}
+        {{ form_errors(edit_form.tags) }}
+    </div>
+    <div class="form_row field-file col-md-12">
+        {{ form_label(edit_form.file) }}
+        {{ form_widget(edit_form.file) }}
+        {{ form_errors(edit_form.file) }}
+    </div>
+
+    <div class="form_row field-media col-md-12">
+        {{ form_label(edit_form.media) }}
+
+        <ul class="media" data-prototype="{{ form_widget(edit_form.media.vars.prototype)|e }}">
+            {% for media in edit_form.medias %}
+                <li class="mediaItem well" id="med{{ media.vars.data.id }}">
+                    <div class="col-md-5">
+                        <img src='{{ web_image("uploads/documents/" ~ media.vars.data.path ).resize(275,275) }}' />
+                    </div>
+                    <div class="col-md-7">
+                        {{ form_row(media.name) }}
+                        {{ form_row(media.file) }}
+                        {{ form_row(media.categories) }}
+                        {{ form_row(media.tags) }}
+                    </div>
+                    <hr>
+                    <a href="#" class="btn btn-success doneBtn" itemValue="{{ media.vars.data.id }}" role="button">Done</a> 
+                </li>
+            {% endfor %}
+        </ul>
+
+        <p>New</p>
+        <div class="media-bucket col-md-12 well">
+            <div class="row newrow">
+
+            </div>
+        </div>
+
+        {% for name,bucket in gallery_buckets %}
+            <p>{{name}}</p>
+            <div class="media-bucket col-md-12 well">
+                <div class="row">
+                    {% for item in bucket %}
+                        <div class="col-sm-12 col-md-12">
+                            <div class="thumbnail col-md-12">
+                                <img class="col-md-2" src="{{ web_image("uploads/documents/" ~ item.path ).resize(100,100) }}" alt="">
+                                <div class="col-md-10 caption">
+                                    <h3 class="col-md-9">{{ item.name }}</h3>
+                                    <p class='col-md-3'>
+                                        <a href="#" class="btn btn-default btn-sm editBtn" role="button" mediaValue="{{ item.id }}">Edit</a>
+                                        <a href="#" class="btn btn-default btn-sm delBtn" role="button" mediaValue="{{ item.id }}">Delete</a> 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}        
+                </div>
+            </div>
+        {% endfor %}
+
+
+        {{ form_errors(edit_form.medias) }}
+        {% do edit_form.media.setRendered %}
+    </div>
+
+    <div class="btn-update">
+        {{ form_end(edit_form) }}
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/mediablock.js') }}"></script>
+{% endblock %}

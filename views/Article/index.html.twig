@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>Hotel list</h1>
+    </div>
+
+    <nav id="page-nav" class="navbar navbar-default" role="navigation">
+        <a class="btn btn-primary navbar-btn" href="{{ path('article_new') }}">
+            <span class="glyphicon glyphicon-plus"></span> New Entry
+        </a>
+    </nav>
+
+    <div class="list-group">
+    {% for entity in entities %}
+        <div class="list-group-item">
+            <div class="col-md-4"><a href="{{ path('article_edit', { 'id': entity.id }) }}"><img src='{{ web_image("uploads/documents/" ~ entity.hero ).resize(275,275) }}' /></a></div>
+            <div class="col-md-4">
+                <h4 class="list-group-item-heading">{{ entity.title }}</h4>
+                <p class="list-group-item-text">{{ entity.author }}</p>
+                <p class="list-group-item-text">{{ entity.date }}</p>
+            </div>
+            <div class="col-md-4 list-actions">
+                <a class="btn btn-default" href="{{ path('article_edit', { 'id': entity.id }) }}">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

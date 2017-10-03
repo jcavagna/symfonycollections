@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/select2.css') }}" />
+{% endblock %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>New Hotel</h1>
+        <a href="{{ path('article') }}">
+            <span class="glyphicon glyphicon-chevron-left"></span> Back
+        </a>
+    </div>
+
+    {{ form_start(form) }}
+         <div class="form_row field-title col-md-6">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title) }}
+            {{ form_errors(form.title) }}
+        </div>
+        <div class="form_row field-author col-md-6">
+            {{ form_label(form.author) }}
+            {{ form_widget(form.author) }}
+            {{ form_errors(form.author) }}
+        </div>
+        <div class="form_row field-date col-md-6">
+            {{ form_label(form.date) }}
+            {{ form_widget(form.date) }}
+            {{ form_errors(form.date) }}
+        </div>
+        <div class="form_row field-content col-md-6">
+            {{ form_label(form.content) }}
+            {{ form_widget(form.content) }}
+            {{ form_errors(form.content) }}
+        </div>
+        <div class="form_row field-categories col-md-12">
+            {{ form_label(form.categories) }}
+            {{ form_widget(form.categories) }}
+            {{ form_errors(form.categories) }}
+        </div>
+        <div class="form_row field-tags col-md-12">
+            {{ form_label(form.tags) }}
+            {{ form_widget(form.tags) }}
+            {{ form_errors(form.tags) }}
+        </div>
+        <div class="form_row field-file col-md-12">
+            {{ form_label(form.file) }}
+            {{ form_widget(form.file) }}
+            {{ form_errors(form.file) }}
+        </div>
+
+        <hr>
+
+        <div class="form_row field-medias col-md-12">
+            {{ form_label(form.medias) }}
+            <ul class="media" data-prototype="{{ form_widget(form.medias.vars.prototype)|e }}">
+                {% for media in form.medias %}
+                    <li class="mediaItem well">
+                        {{ form_row(media.name) }}
+                        {{ form_row(media.file) }}
+                        {{ form_row(media.categories) }}
+                        {{ form_row(media.tags) }}
+                    </li>
+                {% endfor %}
+            </ul>
+            {{ form_errors(form.medias) }}
+            {% do form.medias.setRendered %}
+
+            <p>New</p>
+            <div class="media-bucket col-md-12 well">
+                <div class="row newrow">
+
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+    <div class="btn-create">
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script type="text/javascript" src="{{ asset('js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/form.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/mediablock.js') }}"></script>
+{% endblock %}
