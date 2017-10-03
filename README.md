@@ -1,8 +1,8 @@
-#Symfony Collections Example
+# Symfony Collections Example
 
 This codebase shows an example of files in Symfony on how to create many-to-many bidirectional relations using collections with the assistance of Doctrine.
 
-#Usage
+# Usage
 
 Whenever you need two entities created at the same time and relating to each other, Symfony collections come into play. Creating the forms and the models interlinked can become a challenge. 
 
